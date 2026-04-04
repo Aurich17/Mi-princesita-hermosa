@@ -51,7 +51,16 @@ app.get("/api/gallery-photos", async (req, res) => {
       .order("created_at", { ascending: false });
 
     if (error) {
-      res.status(500).json({ error: "select_failed" });
+      console.error("supabase_select_failed", {
+        message: error.message,
+        code: error.code,
+        hint: error.hint,
+        details: error.details,
+      });
+      res.status(500).json({
+        error: "select_failed",
+        details: error.message,
+      });
       return;
     }
 
@@ -97,7 +106,16 @@ app.post("/api/gallery-photos", async (req, res) => {
       .single();
 
     if (error) {
-      res.status(500).json({ error: "insert_failed" });
+      console.error("supabase_insert_failed", {
+        message: error.message,
+        code: error.code,
+        hint: error.hint,
+        details: error.details,
+      });
+      res.status(500).json({
+        error: "insert_failed",
+        details: error.message,
+      });
       return;
     }
 
