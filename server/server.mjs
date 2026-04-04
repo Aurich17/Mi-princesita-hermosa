@@ -117,7 +117,7 @@ app.post("/api/gallery-photos", async (req, res) => {
 
 const distDir = path.resolve(__dirname, "..", "dist");
 app.use(express.static(distDir));
-app.get("*", (req, res) => {
+app.get(/.*/, (req, res) => {
   res.sendFile(path.join(distDir, "index.html"));
 });
 
@@ -125,4 +125,3 @@ const port = Number(process.env.PORT ?? "3000");
 app.listen(port, "0.0.0.0", () => {
   console.log(`server listening on http://0.0.0.0:${port}`);
 });
-
